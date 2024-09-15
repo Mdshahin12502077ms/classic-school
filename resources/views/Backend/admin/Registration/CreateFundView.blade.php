@@ -221,7 +221,8 @@ $(document).on('click', '.Payment', function() {
             _token: '{{ csrf_token() }}'  // CSRF token for security
         },
         success: function(response) {
-           
+        //    alert(response.data);
+        console.log(response.data);
             console.log('Payment data stored in session');
         },
         error: function(xhr) {

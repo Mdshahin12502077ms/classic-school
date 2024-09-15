@@ -11,8 +11,11 @@ aria-hidden="true">
         </div>
         <div class="modal-body">
             <?php
-                    $id=session('payment_id');
-                    $amount=session('payment_amount');
+
+                   // To verify the new session data
+                         $newId = session('payment_id');
+                        $newAmount = session('payment_amount');
+
 
             ?>
 
@@ -20,8 +23,8 @@ aria-hidden="true">
                     <div class="row">
                         <div class="mb-3 col-md-6 text-center form-group">
                             <form action="{{ route('bkash-create-payment') }}" method="get">
-                                <input type="hidden" name="amount" id="item_amount" value="{{$amount}}">
-                                <input type="hidden" name="amountId" id="item_id" value="{{$id}}">
+                                <input type="hidden" name="amount" id="item_amount" value="{{session('payment_amount')}}">
+                                <input type="hidden" name="amountId" id="item_id" value="{{session('payment_id')}}">
                                 <button type="submit" style="border:none">
                                  <img src="{{asset('Backend/image/logo/bkash_logo.png')}}" alt="" class="mx-auto d-block"  style="box-shadow: 10px 5px 5px rgb(128, 108, 108); height:100px;width:70%;">
                                  <h4 class="mt-2">BKASH</h4>
@@ -49,7 +52,7 @@ aria-hidden="true">
                 <div class="modal-footer">
                     <button type="button" class="footer-btn bg-dark-low"
                         data-dismiss="modal">Close</button>
-                    <button type="submit" class="footer-btn bg-linkedin"> Fund Save</button>
+
                 </div>
             </form>
 

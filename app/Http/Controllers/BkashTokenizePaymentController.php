@@ -101,7 +101,7 @@ class BkashTokenizePaymentController extends Controller
                 $payment->branch_name=$branchName; // Assuming 'amount' is in the response
                 $payment->status='Completed';
                 $payment->save();
-
+                session()->forget(['payment_id', 'payment_amount']);
                 //get amount id
                 if ($amountId) {
                 $amountRecord = StRegistrationFund::where('id', $amountId)->first();
@@ -118,6 +118,7 @@ class BkashTokenizePaymentController extends Controller
             return BkashPaymentTokenize::cancel('Your payment is canceled');
         }else{
             // toastr()->warning('Your transaction is failed');
+            session()->forget(['payment_id', 'payment_amount']);
             Toastr()->warning('Your transaction is failed');
             return redirect()->to('/Registration/student/all/fund/view');
             // return BkashPaymentTokenize::failure('Your transaction is failed');
