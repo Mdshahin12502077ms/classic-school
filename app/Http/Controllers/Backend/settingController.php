@@ -11,6 +11,17 @@ use App\Models\BackendSettings;
 
 class settingController extends Controller
 {
+
+
+     public function index(){
+        return view('Backend.admin.settings.index');
+     }
+
+
+
+
+
+
     Public function division_add(){
         $get_division=Division::all();
         return view('Backend.admin.settings.Add_division',compact('get_division'));
@@ -149,12 +160,14 @@ class settingController extends Controller
 
   public function BackendEdit(){
 
-    $data['getBackend']=BackendSettings::where('id',1)->first();
+    $data['getBackend']=BackendSettings::all();
+    dd($data['getBackend']);
     return view('Backend.admin.settings.edit_backend',$data);
   }
 
   public function BackendUpdate(Request $request,$id){
-    $backend=BackendSettings::find($id);
+    $backend=BackendSettings::where('id',$id)->first();
+     dd( $backend->footer);
     $backend->institute_name=$request->name;
     $backend->starting_year=$request->starting_year;
 
@@ -172,6 +185,7 @@ class settingController extends Controller
     $backend->linkedin=$request->linkedin;
     // dd($request->instragram);
     $backend->instragram=$request->instragram;
+
     $backend->footer=$request->footer;
 
     if(isset($request->logo)){

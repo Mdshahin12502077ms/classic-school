@@ -53,14 +53,23 @@ aria-hidden="true">
                 </div>
 
 
-                <div class="mb-3 col-md-12  form-group">
-                    <label for="">Amount</label>
-                    <input type="text" name="amount" class="form-control" id="sessionName"
-                        placeholder=""style="font-size:20px">
-                        @if($errors->has('amount'))
-                        <div class="error" style="color:red">{{ $errors->first('amount') }}</div>
-                     @endif
+                <div class="mb-3 col-md-12 form-group">
+                    <label for="">Student Amount</label>
+                    <input type="text" name="amount" class="form-control" id="amount" placeholder="" style="font-size:20px">
+                    @if($errors->has('amount'))
+                    <div class="error" style="color:red">{{ $errors->first('amount') }}</div>
+                    @endif
                 </div>
+
+                {{-- <div class="mb-3 col-md-12 form-group">
+                    <label for="">Total Students</label>
+                    <input type="text" name="total_students" class="form-control" id="total_students" placeholder="Enter total number of students" style="font-size:20px">
+                </div>
+
+                <div class="mb-3 col-md-12 form-group">
+                    <label for="">Total Amount</label>
+                    <input type="text" class="form-control" id="total_amount" readonly style="font-size:20px">
+                </div> --}}
 
                 <div class="modal-footer">
                     <button type="button" class="footer-btn bg-dark-low"
@@ -76,3 +85,20 @@ aria-hidden="true">
     </div>
 </div>
 </div>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#amount, #total_students').on('input', function() {
+            var perStudentAmount = parseFloat($('#amount').val());
+            var totalStudents = parseInt($('#total_students').val());
+
+            if(!isNaN(perStudentAmount) && !isNaN(totalStudents)) {
+                var totalAmount = perStudentAmount * totalStudents;
+                $('#total_amount').val(totalAmount);
+            } else {
+                $('#total_amount').val(''); // Clear total amount if inputs are invalid
+            }
+        });
+    });
+</script> --}}

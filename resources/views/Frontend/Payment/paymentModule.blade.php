@@ -3,55 +3,57 @@ aria-hidden="true">
 <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">PayMent Way For Registration</h5>
-            <button type="button" class="close" data-dismiss="modal"
-                aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+
+            @php
+            $backend_setting=App\Models\BackendSettings::first();
+          @endphp
+            <img src="{{asset($backend_setting->logo)}}" alt="Logo">
+            <h2>Classic Software Technology</h2>
+            <button type="button" class="footer-btn bg-dark-low"
+            data-dismiss="modal" style="background-color: white">X</button>
         </div>
+
+        <!-- Navigation tabs -->
+        <hr class="" style="background-color: #08889e;height:2vh">
+        </hr>
+
         <div class="modal-body">
-            <?php
 
-                   // To verify the new session data
-                         $newId = session('payment_id');
-                        $newAmount = session('payment_amount');
+            <div class="payment-methods">
+                <form action="{{ route('bkash-create-payment') }}" method="get">
+                    <input type="hidden" name="amount" id="pay_amount" >
+                    <input type="hidden" name="amountId" id="pay_id" >
+                    <button type="submit" class="btn btn-outline-secondary pbutton">
+                     <img src="{{asset('Backend/image/logo/bkash.png')}}" alt="bkash">
+                     {{-- <h4 class="mt-2">BKASH</h4> --}}
+                    </button>
+                </form>
 
+                <form action="{{ route('bkash-create-payment') }}" method="get">
+                    <input type="hidden" name="amount" id="pay_amount" >
+                    <input type="hidden" name="amountId" id="pay_id" >
+                    <button type="submit" class="btn btn-outline-secondary pbutton">
+                     <img src="{{asset('Backend/image/logo/Nagad-Logo.wine.png')}}" alt="nagad">
+                     {{-- <h4 class="mt-2">BKASH</h4> --}}
+                    </button>
+                </form>
 
-            ?>
+                <form action="{{ route('bkash-create-payment') }}" method="get">
+                    <input type="hidden" name="amount" id="pay_amount" >
+                    <input type="hidden" name="amountId" id="pay_id" >
+                    <button type="submit" class="btn btn-outline-secondary pbutton">
+                     <img src="{{asset('Backend/image/logo/rocket.png')}}" alt="rocket">
+                     {{-- <h4 class="mt-2">BKASH</h4> --}}
+                    </button>
+                </form>
+                <img src="https://via.placeholder.com/80x40?text=Upay" alt="Upay">
+                <img src="https://via.placeholder.com/80x40?text=Cellfin" alt="Cellfin">
+            </div>
 
-                <div class="d-flex mt-5 mb-5">
-                    <div class="row">
-                        <div class="mb-3 col-md-6 text-center form-group">
-                            <form action="{{ route('bkash-create-payment') }}" method="get">
-                                <input type="hidden" name="amount" id="paymentAmount" >
-                                <input type="hidden" name="amountId" id="paymentId" >
-                                <button type="submit" style="border:none">
-                                 <img src="{{asset('Backend/image/logo/bkash_logo.png')}}" alt="" class="mx-auto d-block"  style="box-shadow: 10px 5px 5px rgb(128, 108, 108); height:100px;width:70%;">
-                                 <h4 class="mt-2">BKASH</h4>
-                                </button>
-                            </form>
-
-                        </div>
-
-                        <div class="mb-3  col-md-6   form-group">
-                            <a href=""><img src="{{asset('Backend/image/logo/Nagad-Logo.wine.png')}}" alt="" class="mx-auto d-block" height="100" width="100" style="box-shadow: 10px 5px 5px rgb(128, 108, 108); height:100px;width:70%;"></a>
-                           <h4 class="text-center">Nagad</h4>
-                        </div>
-
-                        <div class="mb-3  col-md-6   form-group">
-                            <a href=""><img src="{{asset('Backend/image/logo/rocket.png')}}" alt="" class="mx-auto d-block" height="100" width="100" style="box-shadow: 10px 5px 5px rgb(128, 108, 108); height:100px;width:70%;"></a>
-                           <h4 class="text-center">Rocket</h4>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-
+            <hr class="" style="background-color: #08889e;height:2px">
+        </hr>
                 <div class="modal-footer">
-                    <button type="button" class="footer-btn bg-dark-low"
-                        data-dismiss="modal">Close</button>
+                    <input class="pay-btn text-center" type="text" readonly name="amount" id="pay_amount1" >
 
                 </div>
             </form>
@@ -63,3 +65,9 @@ aria-hidden="true">
     </div>
 </div>
 </div>
+
+
+
+
+
+

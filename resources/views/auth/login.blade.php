@@ -46,7 +46,7 @@
     </form>
 </x-guest-layout> --}}
 
- <!doctype html>
+ {{-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -54,8 +54,88 @@
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
-  <body>
+  <body> --}}
+
+    @extends('admin.layouts.master')
+    @section('content')
+    <div class="login-main"
+        style="background-image: url('{{ asset('assets/admin/images/login.jpg') }}')">
+        <div class="container custom-container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-5 col-xl-5 col-lg-6 col-md-8 col-sm-11">
+                    <div class="login-area">
+                        <div class="login-wrapper">
+                            <div class="login-wrapper__top">
+                                @php
+                                $backend_setting=App\Models\BackendSettings::first();
+                                @endphp
+                               <h3 class="title text-white">@lang('Welcome to') <strong>{{$backend_setting->site_title }}</strong></h3>
+                              <p class="text-white">
+                                    @lang('Dashboard')</p>
+                            </div>
+
+                            <div class="login-wrapper__body">
+                                <form action="{{url('Login/AuthCheck')}}" method="POST" class="cmn-form mt-30 verify-gcaptcha login-form">
+                                    @csrf
+
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label>@lang('Institute Registration Number ')<span style="color:red">*</span></label>
+                                        <input type="text" name="registration_id" id="typeEmailX" class="form-control form-control-lg" />
+
+                                        @if($errors->has('registration_id'))
+                                        <div class="error" style="color:red">{{ $errors->first('registration_id') }}</div>
+                                     @endif
+                                      </div>
+
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label>@lang('Email')<span style="color:red">*</span></label>
+                                        <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" />
+
+                                        @if($errors->has('email'))
+                                        <div class="error" style="color:red">{{ $errors->first('email') }}</div>
+                                     @endif
+                                      </div>
+
+                                      <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label>@lang('Password')<span style="color:red">*</span></label>
+                                        <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" />
+
+                                        @if($errors->has('password'))
+                                        <div class="error" style="color:red">{{ $errors->first('password') }}</div>
+                                     @endif
+                                      </div>
+                                    {{-- <x-captcha /> --}}
+                                    <button type="submit" class="btn cmn-btn w-100">@lang('LOGIN')</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{--
     <section class="vh-100 gradient-custom">
+
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -121,4 +201,6 @@
       </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
-</html>
+</html> --}}
+
+

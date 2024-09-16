@@ -5139,3 +5139,95 @@ ul {
 .text-orange-red {
   color: #ff0000;
 }
+
+
+
+/* payment */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.modal-header img {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.modal-header h2 {
+    font-size: 18px;
+    margin: 0;
+    flex-grow: 1;
+    color: #333;
+}
+
+/* Close button */
+.close-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+/* Payment method section */
+.payment-methods {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+ .pbutton {
+    width: 80px;
+    height:50px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.pbutton:hover {
+    transform: scale(1.1);
+}
+
+/* Payment button */
+.pay-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.pay-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Additional elements under header */
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.nav-tabs button {
+    border: none;
+    background: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.nav-tabs button.active {
+    color: white;
+    background-color: #007bff;
+    border-radius: 20px;
+}

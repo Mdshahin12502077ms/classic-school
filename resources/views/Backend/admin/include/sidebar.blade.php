@@ -275,9 +275,9 @@
                         class="flaticon-chat"></i><span>Smtp Setting</span></a>
             </li>
             <li class="nav-item sidebar-nav-item">
-                <a href="#" class="nav-link"><i
-                        class="flaticon-classmates"></i><span>Settings</span></a>
-                <ul class="nav sub-group-menu">
+                <a href="{{url('SystemSettings/index')}}" class="nav-link"><i
+                        class="flaticon-classmates"></i><span>System Settings</span></a>
+                {{-- <ul class="nav sub-group-menu">
                     <li class="nav-item">
                         <a href="{{ url('add_division') }}" class="nav-link"><i class="fas fa-angle-right"></i>Add Division</a>
                     </li>
@@ -296,7 +296,7 @@
                     </li>
 
 
-                </ul>
+                </ul> --}}
             </li>
                @endif
 

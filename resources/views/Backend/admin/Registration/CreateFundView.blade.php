@@ -64,15 +64,16 @@
                         </div>
                      <div class="col-md-12" style="background-color: green;height:8vh">
                         <div class="row">
-                            <div class="col-md-3 text-white" style="line-height: 8vh">Institute Payment Details</div>
-                             <div class="col-md-6"> </div>
+                            <div class="col-md-6 " >
+                                <h4 class="col-sm-6 text-white">Institute Payment Details</h4>
+                            </div>
+                             <div class="col-md-3 col-sm-0"> </div>
                             <div class="col-md-3" align="right">
                                 <a type="button" href=""
-                                class="btn btn-info btn-lg addFund" style="font-size:15px; margin:4%;"
+                                class="btn btn-info btn-lg addFund" style="font-size:15px;"
                                 data-toggle="modal"
                                 data-course="{{$course->course_name}}"
                                 data-session="{{$session->id}}"
-
                                 data-target="#standard-modal">
                                   Add Fund
                                </a>
@@ -80,7 +81,8 @@
                         </div>
 
                      </div>
-                        <div class="table-responsive table table-bordered">
+
+                        <div class="table-responsive table table-bordered mt-5">
                             <table class="table display data-table text-nowrap font_style table_style" id="students-table">
                                 <thead >
                                   <th style="width:10%; vertical-align: middle;color:black;font-size:15px">Sl No</th>
@@ -210,8 +212,11 @@
 $(document).on('click', '.Payment', function() {
     var id = $(this).data('id');
     var amount = $(this).data('amount');
-    $('#paymentId').val(id); // Set the hidden id input value
-    $('#paymentAmount').val(amount);
+
+    $('#pay_id').val(id);
+    $('#pay_amount').val(amount);
+
+    $('#pay_amount1').val('Pay ' + amount + ' BDT'); 
 });
 </script>
 

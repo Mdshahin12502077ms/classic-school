@@ -159,7 +159,8 @@ Route::prefix('Student/')->group(function(){
    Route::post('education_year/delete/{id}',[settingController::class,'deleteEducationYear']);
    Route::get('education_year/info/{id}',[settingController::class,'educationYearInfo']);
 
-   Route::prefix(' Settings/')->group(function(){
+   Route::prefix(' SystemSettings/')->group(function(){
+    Route::get('index',[settingController::class,'index']);
     Route::get('Backend/Settings',[settingController::class,'BackendEdit']);
     Route::POST('update/{id}',[settingController::class,'BackendUpdate']);
   });

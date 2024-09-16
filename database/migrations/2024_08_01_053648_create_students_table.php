@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('st_course_reg')->nullable();
             $table->bigInteger('session_id');
             $table->bigInteger('eduyear_id')->nullable();
+            $table->bigInteger('reg_session_id')->nullable();
+
             $table->string('edu_qualification');
             $table->string('reg_no');
             $table->string('result');

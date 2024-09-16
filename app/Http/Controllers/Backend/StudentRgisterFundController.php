@@ -28,7 +28,7 @@ class StudentRgisterFundController extends Controller
         $data['course']=CourseModel::all();
         $data['session']=Session::with('eduyear')->where('status','Active')->get();
         $data['available_payment']=StRegistrationFund::where('institute_id',Auth::user()->branch_id)->first();
-
+        
 
         return view('Backend.admin.Registration.CreateFundView',$data);
     }

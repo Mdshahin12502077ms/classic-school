@@ -93,7 +93,7 @@ class StudentController extends Controller
         $student->status ='pending';
         $student->class_roll = $request->class_roll;
         $student->created_by=Auth::user()->id;
-
+        // $registration_limit_id=RegistrationSession::where()
         $student->id_type = $request->id_type;
         $student->id_number = $request->id_number;
         $student->Date_of_birth = $request->Date_of_birth;

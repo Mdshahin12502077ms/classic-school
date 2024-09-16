@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('twitter')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('instragram')->nullable();
+            $table->string('footer')->nullable();
             $table->timestamps();
         });
     }

@@ -165,7 +165,7 @@
 
                                             <div class="col-lg-6 col-12 form-group ">
                                                 <label class="text-dark-medium">Footer</label>
-                                               <textarea type="text" name="footer" class="form-control" value="{{$getBackend->footer}}">{{$getBackend->footer}}</textarea>
+                                                <textarea name="footer" class="form-control">{{$getBackend->footer}}</textarea>
                                             </div>
 
                                         </div>
