@@ -210,25 +210,8 @@
 $(document).on('click', '.Payment', function() {
     var id = $(this).data('id');
     var amount = $(this).data('amount');
-
-    // Send the data to the server
-    $.ajax({
-        url: '/store-payment-data',  // URL to send the request to
-        method: 'POST',
-        data: {
-            id: id,
-            amount: amount,
-            _token: '{{ csrf_token() }}'  // CSRF token for security
-        },
-        success: function(response) {
-        //    alert(response.data);
-        console.log(response.data);
-            console.log('Payment data stored in session');
-        },
-        error: function(xhr) {
-            console.error('Error:', xhr.responseText);
-        }
-    });
+    $('#paymentId').val(id); // Set the hidden id input value
+    $('#paymentAmount').val(amount);
 });
 </script>
 

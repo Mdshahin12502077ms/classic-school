@@ -18,12 +18,16 @@ class AuthController extends Controller
           $password=$request->password;
           $registration_id=$request->registration_id;
 
+if($request->registration_id!=null){
+    $registration=Branch::where('registration_id',$request->registration_id)->first();
+       if($registration->status=='Expired'){
+        Auth::logout();
+        toastr()->warning('Your Registration Time Is Over Please Contact with Authorization');
+        return redirect('Login/log');
+      }
 
-        $registration=Branch::where('registration_id',$request->registration_id)->first();
-    
-
-     if( $registration_id!=null){
-    if(Auth::attempt(['email' => $email, 'password' => $password]) && Auth::user()->branch_id==$registration->id){
+     if($registration->status=='Approved'){
+       if(Auth::attempt(['email' => $email, 'password' => $password]) && Auth::user()->branch_id==$registration->id){
         if(Auth::user()){
 
               return redirect('admin/dashboard');
@@ -31,6 +35,8 @@ class AuthController extends Controller
         }
      }
   }
+
+}
 
 
     if(Auth::attempt(['email' => $email, 'password' => $password]) && Auth::user()->admin_role=='superadmin'){
