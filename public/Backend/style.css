@@ -5231,3 +5231,20 @@ ul {
     background-color: #007bff;
     border-radius: 20px;
 }
+
+.system-settings
+{
+    margin:auto !important;
+    font-size: 25px;
+      height: 50px;
+      width: 50px;
+    background-color:#2a75f8;
+    line-height: 50px;
+    border-radius: 10%;
+    /* padding-left: 5%; */
+}
+
+.contolmargin
+{
+    margin:0;
+}

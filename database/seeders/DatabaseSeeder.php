@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(BackendSetting::class);
+        $this->call(logoseeder::class);
+        $this->call(MetaSet::class);
     }
 }

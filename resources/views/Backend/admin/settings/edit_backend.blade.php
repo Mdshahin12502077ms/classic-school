@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form class="new-added-form" action="{{url('Settings/update',$getBackend->id)}}" method="post" enctype="multipart/form-data">
+                            <form class="new-added-form" action="{{url('SystemSettings/update',$getBackend->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
 

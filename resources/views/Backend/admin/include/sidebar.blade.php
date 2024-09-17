@@ -270,10 +270,6 @@
                         class="flaticon-chat"></i><span>Messeage</span></a>
             </li>
 
-            <li class="nav-item">
-                <a href="{{url('smtp/setting')}}" class="nav-link"><i
-                        class="flaticon-chat"></i><span>Smtp Setting</span></a>
-            </li>
             <li class="nav-item sidebar-nav-item">
                 <a href="{{url('SystemSettings/index')}}" class="nav-link"><i
                         class="flaticon-classmates"></i><span>System Settings</span></a>

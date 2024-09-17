@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('backend_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('logo')->nullable();
+            // $table->string('logo')->nullable();
             $table->string('institute_name')->nullable();
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
-            $table->string('meta_keywords')->nullable();
+            // $table->string('meta_title')->nullable();
+            // $table->string('meta_description')->nullable();
+            // $table->string('meta_keywords')->nullable();
             $table->string('starting_year')->nullable();
-            $table->string('favicon')->nullable();
+            // $table->string('favicon')->nullable();
             $table->string('site_title')->nullable();
             $table->string('sub_title')->nullable();
             $table->string('address')->nullable();

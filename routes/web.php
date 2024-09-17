@@ -161,6 +161,12 @@ Route::prefix('Student/')->group(function(){
 
    Route::prefix(' SystemSettings/')->group(function(){
     Route::get('index',[settingController::class,'index']);
+
+    Route::get('Backend/Settings/logo',[settingController::class,'logoset']);
+    Route::POST('logo/update/{id}',[settingController::class,'logoUpdate']);
+    Route::get('Backend/Settings/seo',[settingController::class,'seoSettings']);
+    Route::POST('seo/update/{id}',[settingController::class,'seoUpdate']);
+
     Route::get('Backend/Settings',[settingController::class,'BackendEdit']);
     Route::POST('update/{id}',[settingController::class,'BackendUpdate']);
   });

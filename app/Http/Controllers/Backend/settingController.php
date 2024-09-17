@@ -8,6 +8,8 @@ use App\Models\Division;
 use App\Models\District;
 use App\Models\EducationYear;
 use App\Models\BackendSettings;
+use App\Models\logoSet;
+use App\Models\MetaSet;
 
 class settingController extends Controller
 {
@@ -160,14 +162,14 @@ class settingController extends Controller
 
   public function BackendEdit(){
 
-    $data['getBackend']=BackendSettings::all();
-    dd($data['getBackend']);
+    $data['getBackend']=BackendSettings::where('id',1)->first();
+    // dd($data['getBackend']->id);
     return view('Backend.admin.settings.edit_backend',$data);
   }
 
   public function BackendUpdate(Request $request,$id){
     $backend=BackendSettings::where('id',$id)->first();
-     dd( $backend->footer);
+    //  dd( $backend->footer);
     $backend->institute_name=$request->name;
     $backend->starting_year=$request->starting_year;
 
@@ -188,36 +190,58 @@ class settingController extends Controller
 
     $backend->footer=$request->footer;
 
+    $backend->save();
+    toastr()->success('Update Backend Successfully');
+    return redirect()->back();
+  }
+
+
+
+  public function logoset(){
+    $logo=logoSet::where('id',1)->first();
+
+   return view('Backend.admin.settings.logosetting',compact('logo'));
+  }
+
+
+  public function logoupdate(Request $request,$id){
+    $logo=logoSet::where('id',$id)->first();
     if(isset($request->logo)){
 
-        if($backend->logo && file_exists($backend->logo)){
-            unlink($backend->logo);
+        if($logo->logo && file_exists($logo->logo)){
+            unlink($logo->logo);
         }
 
         $file = $request->file('logo');
         $extension = 'logo'.$file->getClientOriginalExtension();
         $filename = time() . '.' . $extension;
-        $path = 'Backend/image/BackendSetting/';
+        $path = 'Backend/image/LogoSetting/';
         $file->move($path, $filename);
-        $backend->logo = $path . $filename;
+        $logo->logo = $path . $filename;
         }
 
 
     if(isset($request->favicon)){
 
-        if($backend->favicon && file_exists($backend->favicon)){
-            unlink($backend->favicon);
+        if($logo->favicon && file_exists($logo->favicon)){
+            unlink($logo->favicon);
         }
 
         $file = $request->file('favicon');
         $extension = 'favicon'.$file->getClientOriginalExtension();
         $filename = time() . '.' . $extension;
-        $path = 'Backend/image/BackendSetting/';
+        $path = 'Backend/image/LogoSetting/';
         $file->move($path, $filename);
-        $backend->favicon = $path . $filename;
+        $logo->favicon = $path . $filename;
         }
-    $backend->save();
-    toastr()->success('Update Backend Successfully');
-    return redirect()->back();
+
+        $logo->save();
+        toastr()->success('Update logo and favicon Successfully');
+        return redirect()->back();
+  }
+
+  public function seoSettings(){
+    $seo=MetaSet::where('id',1)->first();
+    return view('Backend.admin.settings.seo_setting',compact('seo'));
   }
 }
