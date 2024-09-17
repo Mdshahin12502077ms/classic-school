@@ -16,16 +16,39 @@
             <div class="container col-lg-12">
 
 
-                <div class="card height-auto">
-                    <div class="card-body">
-                        <div class="heading-layout1">
 
-                    </div>
-                </div>
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                   <div class="col-md-2">Hi</div>
+                                                    <div class="col-md-10" style="line-height: 1px">
+                                                        <h4 class="mt-3"><b >General Settings</b></h4>
+                                                          <p style="font-size: 14px">Configure the foundamental information of the site.</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                          </div>
+                                          </div>
 
 
 
-            </div>
+
+
+
+
+
+
+
+
+                                </div>
+
+
+
+
 
         </div>
         <!-- Social Media End Here -->
