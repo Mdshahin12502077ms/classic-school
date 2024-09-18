@@ -118,7 +118,7 @@
                                     <div class="col-md-4">
                                         <div class="card">
                                             <div class="card-body">
-                                                <a href="">
+                                                <a href="{{url('SystemSettings/Backend/Settings/paymentGateway')}}">
                                                     <div class="row">
                                                         <div class="col-md-2 text-white text-center system-settings"><i class="fa fa-cog"></i></div>
                                                          <div class="col-md-10" style="">

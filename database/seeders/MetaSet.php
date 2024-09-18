@@ -22,6 +22,6 @@ class MetaSet extends Seeder
             ],
 
         ];
-        MetaSet::insert($meta);
+        \App\Models\MetaSet::insert($meta);
     }
 }

@@ -24,6 +24,11 @@ class BkashTokenizePaymentController extends Controller
     {
         $amount = $request->input('amount'); // Use input() method for consistency
         $amountId = $request->input('amountId'); // Use input() method for consistency
+         $auth=Auth::user()->id;
+        //  $branch_id=$auth->branch_id;
+        $getAuth=Auth::user()->where('id',$auth)->first();
+        $getbranch=Branch::where('id',$getAuth->branch_id)->first();
+        $getInstitue= $getbranch->institute_name;
 
         $inv = uniqid();
 
@@ -96,12 +101,18 @@ class BkashTokenizePaymentController extends Controller
                 $payment->payment_id=$request->paymentID;
                 $payment->transaction_id=$response['trxID'];
                 $payment->amount=$response['amount'];
-                $getBranchName=Branch::where('id',Auth::user()->id)->first();
-                $branchName=$getBranchName->institute_name;
-                $payment->branch_name=$branchName; // Assuming 'amount' is in the response
+
+                   // toastr()->warning('Your transaction is failed');
+                    $auth=Auth::user()->id;
+                    //  $branch_id=$auth->branch_id;
+                    $getAuth=Auth::user()->where('id',$auth)->first();
+                    $getbranch=Branch::where('id',$getAuth->branch_id)->first();
+                    $getInstitue= $getbranch->institute_name;
+
+                $payment->branch_name=$$getInstitue; // Assuming 'amount' is in the response
                 $payment->status='Completed';
                 $payment->save();
-             
+
                 //get amount id
                 if ($amountId) {
                 $amountRecord = StRegistrationFund::where('id', $amountId)->first();
@@ -115,9 +126,9 @@ class BkashTokenizePaymentController extends Controller
             }
             return BkashPaymentTokenize::failure($response['statusMessage']);
         }else if ($request->status == 'cancel'){
+            
             return BkashPaymentTokenize::cancel('Your payment is canceled');
         }else{
-            // toastr()->warning('Your transaction is failed');
 
             Toastr()->warning('Your transaction is failed');
             return redirect()->to('/Registration/student/all/fund/view');

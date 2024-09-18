@@ -22,6 +22,6 @@ class logoseeder extends Seeder
             ],
 
         ];
-        logoseeder::insert($logo);
+        \App\Models\logoSet::insert($logo);
     }
 }

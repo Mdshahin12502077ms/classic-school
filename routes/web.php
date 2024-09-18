@@ -159,13 +159,18 @@ Route::prefix('Student/')->group(function(){
    Route::post('education_year/delete/{id}',[settingController::class,'deleteEducationYear']);
    Route::get('education_year/info/{id}',[settingController::class,'educationYearInfo']);
 
-   Route::prefix(' SystemSettings/')->group(function(){
+   Route::prefix('SystemSettings/')->group(function(){
     Route::get('index',[settingController::class,'index']);
 
+    //logo and seo
     Route::get('Backend/Settings/logo',[settingController::class,'logoset']);
     Route::POST('logo/update/{id}',[settingController::class,'logoUpdate']);
     Route::get('Backend/Settings/seo',[settingController::class,'seoSettings']);
     Route::POST('seo/update/{id}',[settingController::class,'seoUpdate']);
+    //payment gateway
+    Route::get('Backend/Settings/paymentGateway',[settingController::class,'paymentGatewaySettings']);
+    Route::get('bkash_custom',[settingController::class,'bkash_custom']);
+    Route::POST('BkashGateway/update/{id}',[settingController::class,'BkashGatewayUpdate']);
 
     Route::get('Backend/Settings',[settingController::class,'BackendEdit']);
     Route::POST('update/{id}',[settingController::class,'BackendUpdate']);

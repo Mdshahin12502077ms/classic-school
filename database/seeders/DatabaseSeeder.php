@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BackendSetting::class);
         $this->call(logoseeder::class);
         $this->call(MetaSet::class);
+        $this->call(paymentGateway::class);
     }
 }

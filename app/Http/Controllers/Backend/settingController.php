@@ -10,7 +10,7 @@ use App\Models\EducationYear;
 use App\Models\BackendSettings;
 use App\Models\logoSet;
 use App\Models\MetaSet;
-
+use App\Models\custompayment;
 class settingController extends Controller
 {
 
@@ -243,5 +243,60 @@ class settingController extends Controller
   public function seoSettings(){
     $seo=MetaSet::where('id',1)->first();
     return view('Backend.admin.settings.seo_setting',compact('seo'));
+  }
+
+  public function seoUpdate(Request $request,$id){
+    $seo=MetaSet::where('id',$id)->first();
+    $seo->meta_title=$request->meta_title;
+    $seo->meta_description=$request->meta_description;
+    $seo->meta_keywords=$request->meta_keywords;
+    $seo->save();
+    toastr()->success('Update SEO Settings Successfully');
+    return redirect()->back();
+  }
+
+
+  public function paymentGatewaySettings(){
+
+    return view('Backend.admin.settings.custom_payment');
+  }
+
+  public function bkash_custom(){
+    $getbkashPayment=custompayment::where('id',1)->first();
+
+    return view('Backend.admin.settings.bkash_custom',compact('getbkashPayment'));
+  }
+
+  public function BkashGatewayUpdate(Request $request,$id){
+
+    $bkashPayment=custompayment::where('id',1)->first();
+    $bkashPayment->name=$request->name;
+    $bkashPayment->transactionFee=$request->transactionFee;
+    $bkashPayment->accountType=$request->accountType;
+
+    $bkashPayment->sandbox=$request->sandbox;
+    $bkashPayment->username=$request->username;
+    $bkashPayment->appKey=$request->appKey;
+
+    $bkashPayment->password=$request->password;
+    $bkashPayment->appSecret=$request->appSecret;
+    $bkashPayment->status=$request->status;
+
+    if(isset($request->logo)){
+
+        if($bkashPayment->logo && file_exists($bkashPayment->logo)){
+            unlink($bkashPayment->logo);
+        }
+
+        $file = $request->file('logo');
+        $extension = 'logo'.$file->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $path = 'Backend/image/LogoSetting/';
+        $file->move($path, $filename);
+        $bkashPayment->logo = $path . $filename;
+        }
+    $bkashPayment->save();
+    toastr()->success('Update Bkash Payment Settings Successfully');
+    return redirect()->back();
   }
 }
