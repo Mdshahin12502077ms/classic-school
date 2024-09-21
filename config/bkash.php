@@ -1,11 +1,45 @@
 <?php
+// Config::all();
+// dd(Config::all());
 return [
-    // "sandbox"         => env("BKASH_SANDBOX", true),
 
-    // "bkash_app_key"     => env("BKASH_APP_KEY", ""),
-    // "bkash_app_secret" => env("BKASH_APP_SECRET", ""),
-    // "bkash_username"      => env("BKASH_USERNAME", ""),
-    // "bkash_password"     => env("BKASH_PASSWORD", ""),
+
+
+
+
+'default' => env('BKASH_DRIVER', ''), // Default driver
+
+    // 'drivers' => [
+    //     'database' => [
+    //         'bkash_app_key' => '',  // These will be overridden by Service Provider
+    //         'bkash_app_secret' => '',
+    //         'bkash_username' => '',
+    //         'bkash_password' => '',
+    //         // 'payment_mode' => 'sandbox', // e.g., sandbox or live
+    //     ],
+
+    //     // You can add other drivers if necessary, like 'file' or 'api'
+    // ],
+
+
+
+
+
+
+
+
+
+
+
+    "sandbox"         => env("BKASH_SANDBOX", false),
+
+    "bkash_app_key"     => env("BKASH_APP_KEY", ""),
+    "bkash_app_secret" => env("BKASH_APP_SECRET", ""),
+    "bkash_username"      => env("BKASH_USERNAME", ""),
+    "bkash_password"     => env("BKASH_PASSWORD", ""),
+    'base_url' => env('BKASH_ENVIRONMENT') === 'live' ? 'https://tokenized.pay.bka.sh/v1.2.0-beta/tokenized/checkout/create' : '',
+
+
 
     // "bkash_app_key_2"     => env("BKASH_APP_KEY_2", ""),
     // "bkash_app_secret_2" => env("BKASH_APP_SECRET_2", ""),
@@ -25,14 +59,9 @@ return [
     // "callbackURL"     => env("BKASH_CALLBACK_URL", "http://127.0.0.1:8000/bkash/callback"),
     // 'timezone'        => 'Asia/Dhaka',
 
-    // "sandbox"         => env("BKASH_SANDBOX"),
-       $getbaksh=custompayment::where('id',1)->where('status','Active')->first();
-       "sandbox"         => $getbaksh->sandbox,
-       "bkash_app_key"     =>$getbaksh->appKey,
-       "bkash_app_secret" =>$getbaksh->appSecret,
-       "bkash_username"      =>$getbaksh->username,
-       "bkash_password"     =>$getbaksh->password,
-    //    'base_url' => env('BKASH_ENVIRONMENT') === 'live' ? 'https://tokenized.pay.bka.sh/v1.2.0-beta/tokenized/checkout/create' : '',
+
+
+
     // "bkash_app_key"     => env("BKASH_APP_KEY"),
     // "bkash_app_secret" => env("BKASH_APP_SECRET"),
     // "bkash_username"      => env("BKASH_USERNAME"),

@@ -8,6 +8,7 @@ use App\Models\CourseModel;
 use App\Models\Session;
 use App\Models\Student;
 use App\Models\EducationYear;
+use App\Models\stRegAvlableAmount;
 use App\Models\RegistrationSession;
 use Nette\Utils\Random;
 use Auth;
@@ -423,23 +424,46 @@ public function newRegistrationInsert(Request $request){
             if( $registration->session->status=='Active'){
                                   if ($action == 'register') {
                                       $studentIds = $request->St_reg;
+                                      $totalStudent=count($studentIds);
+
+
                                       if($studentIds!=null){
                                           foreach ($studentIds as $studentId) {
                                               // Retrieve the student model by ID
                                               $student = Student::find($studentId);
 
-                                               $st_registration='42700'.+ $student->id;
-                                              // Check if student exists
-                                              if ($student) {
-                                                  // Update the property
-                                                  $student->st_course_reg =$st_registration;
-                                                  $student->status='registered';
-                                                  // Save the changes
-                                                  $student->save();
-                                                  toastr()->success('Student Registration Successfully Done');
-                                                  return redirect()->back();
-                                              }
-                                          }
+                                              $availableAmount=stRegAvlableAmount::where('session_id',$student->session_id)
+                                              ->where('course_id',$student->course_id)->where('created_by',Auth::user()->id)
+                                              ->orderBy('id','desc')
+                                              ->first();
+                                           $totalFee=$student->course->course_amount * $totalStudent;
+                                           if ($student) {
+                                           if($availableAmount->available_amount>= $totalFee){
+                                            $balanceAmount=$availableAmount->available_amount-$student->course->course_amount;
+                                            stRegAvlableAmount::where('id',$availableAmount->id)->update(['available_amount'=>$balanceAmount]);
+                                            $st_registration='42700'.+ $student->id;
+                                           // Check if student exists
+
+                                                    // Update the property
+                                                       $student->st_course_reg =$st_registration;
+                                                       $student->status='registered';
+                                                     // Save the changes
+                                                        $student->save();
+
+                                                      }
+
+
+                                                    else{
+                                                        toastr()->error('Registration Failed. Not enough balance for your selected student.');
+                                                        return redirect()->back();
+                                                    }
+
+                                                }
+                                           }
+
+
+                                          toastr()->success('Student Registration Successfully Done');
+                                          return redirect()->back();
                                       }
                                          else{
                                            toastr()->error('No Student Selected For Registration');

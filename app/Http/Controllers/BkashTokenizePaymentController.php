@@ -8,6 +8,8 @@ use Log;
 use App\Models\CreatePayment;
 use App\Models\amount;
 use App\Models\Branch;
+use App\Models\stRegAvlableAmount;
+
 use Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Backend\PaymentTemp;
@@ -109,24 +111,78 @@ class BkashTokenizePaymentController extends Controller
                     $getbranch=Branch::where('id',$getAuth->branch_id)->first();
                     $getInstitue= $getbranch->institute_name;
 
-                $payment->branch_name=$$getInstitue; // Assuming 'amount' is in the response
+                $payment->branch_name=$getInstitue; // Assuming 'amount' is in the response
                 $payment->status='Completed';
                 $payment->save();
 
                 //get amount id
                 if ($amountId) {
                 $amountRecord = StRegistrationFund::where('id', $amountId)->first();
+                $getAvailableAmount=StRegistrationFund::where('course_id', $amountRecord->course_id)->where('session_id', $amountRecord->session_id)
+                ->orderBy('id','desc')->first();
                 if ($amountRecord) {
                     $amountRecord->status = 'Paid'; // Or any status indicating the payment process has started
                     $amountRecord->save();
                   }
                 }
+
+             //available amount insert
+
+             $amountRecord = StRegistrationFund::where('id', $amountId)->first();
+            $getAvailableAmounts=stRegAvlableAmount::where('course_id', $amountRecord->course_id)->where('session_id', $amountRecord->session_id)
+            ->orderBy('id','desc')->where('institute_id',$amountRecord->institute_id)->first();
+            // dd($getAvailableAmount->available_amount);
+          if($getAvailableAmounts==null){
+            $auth=Auth::user()->id;
+            //  $branch_id=$auth->branch_id;
+              $getAuth=Auth::user()->where('id',$auth)->first();
+              $getbranch=Branch::where('id',$getAuth->branch_id)->first();
+              $getAvailableAmount=new stRegAvlableAmount();
+              $getAvailableAmount->amountfund_id=$amountRecord->id;
+              $getAvailableAmount->course_id=$amountRecord->course_id;
+              $getAvailableAmount->session_id=$amountRecord->session_id;
+              $getAvailableAmount->amount=$response['amount'];
+              $getAvailableAmount->available_amount=$response['amount'];
+              $getAvailableAmount->institute_id=$getAuth->branch_id;
+              $getAvailableAmount->created_by= $auth;
+
+              $getAvailableAmount->save();
+             // Or any status indicating the payment process has started
+            }
+         else{
+
+            $auth=Auth::user()->id;
+            //  $branch_id=$auth->branch_id;
+              $getAuth=Auth::user()->where('id',$auth)->first();
+              $getbranch=Branch::where('id',$getAuth->branch_id)->first();
+              $getAvailableAmount=new stRegAvlableAmount();
+              $getAvailableAmount->amountfund_id=$amountRecord->id;
+              $getAvailableAmount->course_id=$amountRecord->course_id;
+              $getAvailableAmount->session_id=$amountRecord->session_id;
+              $getAvailableAmount->amount=$response['amount'];
+              $getAvailableAmount->available_amount=$getAvailableAmounts->available_amount+$response['amount'];
+              $getAvailableAmount->institute_id=$getAuth->branch_id;
+              $getAvailableAmount->created_by= $auth;
+
+             $getAvailableAmount->save();
+         }
+                Toastr()->warning('Your transaction is Successfully done.');
                 return redirect()->to('/Registration/student/all/fund/view')->with('message', 'Payment successful with transaction ID: ' . $response['trxID']);
                 // return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
             }
             return BkashPaymentTokenize::failure($response['statusMessage']);
-        }else if ($request->status == 'cancel'){
-            
+        }
+        else if ($request->status == 'cancel'){
+
+
+
+
+
+
+
+
+
+
             return BkashPaymentTokenize::cancel('Your payment is canceled');
         }else{
 

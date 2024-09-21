@@ -28,7 +28,7 @@ class StudentRgisterFundController extends Controller
         $data['course']=CourseModel::all();
         $data['session']=Session::with('eduyear')->where('status','Active')->get();
         $data['available_payment']=StRegistrationFund::where('institute_id',Auth::user()->branch_id)->first();
-        
+
 
         return view('Backend.admin.Registration.CreateFundView',$data);
     }
@@ -77,14 +77,14 @@ class StudentRgisterFundController extends Controller
         $last_invoice_number=StRegistrationFund::orderBy('id', 'DESC')->first();
         $data->invoice_number=$last_invoice_number->invoice_number+1;
       }
-      $av_amount=StRegistrationFund::where('course_id',$request->course_id)->where('session_id',$request->session_id)->orderBy('id', 'DESC')->where('created_by',Auth::user()->id)->first();
+    //   $av_amount=StRegistrationFund::where('course_id',$request->course_id)->where('session_id',$request->session_id)->orderBy('id', 'DESC')->where('created_by',Auth::user()->id)->first();
 
-      if($av_amount==null){
-        $data->available_amount=$request->amount;
-      }
-      else{
-        $data->available_amount=$av_amount->available_amount+$request->amount;
-       }
+    //   if($av_amount==null){
+    //     $data->available_amount=$request->amount;
+    //   }
+    //   else{
+    //     $data->available_amount=$av_amount->available_amount+$request->amount;
+    //    }
 
       $data->pay_for=$request->pay_for;
       $data->status='Pending';

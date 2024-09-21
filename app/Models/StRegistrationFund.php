@@ -25,4 +25,9 @@ class StRegistrationFund extends Model
 
         return $this->hasMany(RegistrationSession::class,'reg_session_id','id');
     }
+
+    public function availableAmount(){
+
+        return $this->hasMany(stRegAvlableAmount::class,'amountfund_id','id');
+    }
 }

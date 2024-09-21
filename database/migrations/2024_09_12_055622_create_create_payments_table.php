@@ -20,7 +20,7 @@ return new class extends Migration
             $table->double('amount');
             $table->string('status');
             $table->string('branch_name');
-            $table->string('refund_id');
+            $table->string('refund_id')->nullable();
             $table->timestamps();
         });
     }
