@@ -11,6 +11,8 @@ use App\Models\Student;
 use App\Models\EducationYear;
 use App\Models\RegistrationSession;
 use App\Models\StRegistrationFund;
+use App\Models\stRegAvlableAmount;
+
 use Nette\Utils\Random;
 use Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -41,7 +43,7 @@ class StudentRgisterFundController extends Controller
         $instituteOwner=Auth::user()->id;
 
        $getFund=StRegistrationFund::where('session_id',$session_id)->where('course_id',$course_id)->with('session','course')->where('created_by',$instituteOwner)->get();
-       $getAmount=StRegistrationFund::where('session_id',$session_id)->where('course_id',$course_id)->orderBy('id','desc')->with('session','course')->where('created_by',$instituteOwner)->first();
+       $getAmount=stRegAvlableAmount::where('session_id',$session_id)->where('course_id',$course_id)->orderBy('id','desc')->with('StRegistrationFund')->where('created_by',$instituteOwner)->first();
       return response()->json([
             'data'=>$getFund,
             'amount'=>$getAmount->available_amount,

@@ -56,11 +56,17 @@ class BkashTokenizePaymentController extends Controller
             $paymentId = $response['paymentID'] ?? null;
             $bkashURL = $response['bkashURL'] ?? null;
 
+            if($response['paymentID']==null){
+                Toastr()->warning('Please Try Again');
+                return redirect()->to('/Registration/student/all/fund/view');
+            }
+            else{
+                $payment= new PaymentTemp();
+                $payment->amount_id = $amountId;
+                $payment->payment_id =$response['paymentID'];
+                $payment->save();
+            }
 
-            $payment= new PaymentTemp();
-            $payment->amount_id = $amountId;
-            $payment->payment_id =$response['paymentID'];
-            $payment->save();
             // dd($paymentId); // Debug the payment ID
 
             if ($paymentId && $bkashURL) {

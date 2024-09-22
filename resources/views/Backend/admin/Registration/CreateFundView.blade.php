@@ -62,21 +62,24 @@
 
 
                         </div>
-                     <div class="col-md-12" style="background-color: green;height:8vh">
+                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-6 " >
-                                <h4 class="col-sm-6 text-white">Institute Payment Details</h4>
-                            </div>
-                             <div class="col-md-3 col-sm-0"> </div>
-                            <div class="col-md-3" align="right">
-                                <a type="button" href=""
-                                class="btn btn-info btn-lg addFund" style="font-size:15px;"
-                                data-toggle="modal"
-                                data-course="{{$course->course_name}}"
-                                data-session="{{$session->id}}"
-                                data-target="#standard-modal">
-                                  Add Fund
-                               </a>
+
+
+                            <div class="col-md-12 col-md d-md-flex w-100">
+                                <div class="col-md-6 col-sm-12 text-white d-flex text-center" style="line-height:4vh; background-color:green"><span class="mt-2">Institute Payment</span></div>
+                                <div class="col-md-4"style="background-color:green"> </div>
+                                <div class="col-md-2 col-sm-12" align="right" style="background-color:green">
+                                    <a type="button"  href=""
+                                    class="btn btn-info btn-lg addFund col-sm-12 col-md-6 mt-2 mb-2" style="font-size:15px;line-height:4vh; "
+                                    data-toggle="modal"
+                                    data-course="{{$course->course_name}}"
+                                    data-session="{{$session->id}}"
+                                    data-target="#standard-modal">
+                                      Add Fund
+                                   </a>
+                                </div>
+
                             </div>
                         </div>
 
@@ -141,6 +144,7 @@
                     //    console.log(data.data);
             let tableBody = '';
             let available_balance = data.amount;
+            // alert(data.amount);
             if(available_balance!==null){
                 $('#Available_blance').html(`
                     <div class="mt-3 form-group">
@@ -216,7 +220,7 @@ $(document).on('click', '.Payment', function() {
     $('#pay_id').val(id);
     $('#pay_amount').val(amount);
 
-    $('#pay_amount1').val('Pay ' + amount + ' BDT'); 
+    $('#pay_amount1').val('Pay ' + amount + ' BDT');
 });
 </script>
 
