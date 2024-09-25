@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
     public function allCourse(){
-      $data['course'] =CourseModel::all();
-
+      $data['course'] =CourseModel::paginate(10);;
+      
       return view('Backend.admin.Course.AllCourse',$data);
     }
 

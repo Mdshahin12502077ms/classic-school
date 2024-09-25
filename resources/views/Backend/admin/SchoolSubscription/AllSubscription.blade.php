@@ -114,6 +114,7 @@
 
                                                                 </tbody>
                                                             </table>
+                                                            {{$Allsubscription->links()}}
                                                         </div>
 
 
@@ -176,6 +177,7 @@
 
                                                             </tbody>
                                                         </table>
+                                                        {{$Approvedsubscription->links()}}
                                                     </div>
 
                                                 </div>
@@ -234,6 +236,7 @@
 
                                                             </tbody>
                                                         </table>
+                                                        {{$Pendingsubscription->links()}}
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="tab10" role="tabpanel">
@@ -291,6 +294,7 @@
 
                                                             </tbody>
                                                         </table>
+                                                        {{$Expiredsubscription->links()}}
                                                     </div>
                                                 </div>
                                             </div>

@@ -65,7 +65,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($session as $session)
+                                    @foreach ($sessions as $session)
                                     <tr>
                                         <td>
                                             <div class="form-check">
@@ -102,6 +102,7 @@
 
                                 </tbody>
                             </table>
+                            {{ $sessions->links() }}
                         </div>
                     </div>
                 </div>

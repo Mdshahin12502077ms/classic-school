@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class SessionController extends Controller
 {
     public function allSession(){
-      $data['session']=Session::with('course')->get();
+      $data['sessions']=Session::with('course')->paginate(10);
+    
       return view('Backend.admin.Session.sessionAll',$data);
     }
 

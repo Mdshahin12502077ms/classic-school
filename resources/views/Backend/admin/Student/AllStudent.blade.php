@@ -167,6 +167,7 @@
 
                                 </tbody>
                             </table>
+                            {{ $student->links() }}
                         </div>
                     </div>
                 </div>
@@ -191,6 +192,7 @@
         $(document).ready(function () {
             $('#search_branch,#search_course,#search_year,#search_session,#registration').change(function () {
               var branch_id=$('#search_branch').val();
+              
               var course_id=$('#search_course').val();
               var eduyear_id=$('#search_year').val();
               var session_id=$('#search_session').val();
@@ -207,10 +209,10 @@
               },
               success: function(data) {
 
-
+                
                     let adminRole = data.auth_role;
                     let html = '';
-
+                     alert(data.$getstCourseWise);
                     if (data.data.length > 0) {
                         data.data.forEach(function(student) {
                             html += `

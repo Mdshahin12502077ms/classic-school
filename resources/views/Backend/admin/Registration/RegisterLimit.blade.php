@@ -110,7 +110,7 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    @foreach ($dataReg as  $dataReg)
+                                    @foreach ($dataRegistration as  $dataReg)
 
                                     <tr>
                                      <td>{{$loop->iteration}}</td>
@@ -140,7 +140,7 @@
                                    </tbody>
                               </table>
 
-
+                              {{ $dataRegistration->links() }}
 
                     </div>
                 </div>

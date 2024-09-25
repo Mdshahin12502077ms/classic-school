@@ -61,51 +61,9 @@
                                         </div>
                                      </div>
 
-                                    <div class="col-lg-12 col-12 form-group">
-                                        <h4><b>Meta Information</b></h4>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-lg-6 col- form-group">
-                                                <label class="text-dark-medium">Meta Title </label>
-                                               <input type="text" name="meta_title" class="form-control" value="{{$getBackend->meta_title}}">
-                                            </div>
-
-                                            <div class="col-lg-6 col- form-group">
-                                                <label class="text-dark-medium">Meta Description: <span style="color: rgb(98, 150, 248)"> Max Length 160 characters</span></label>
-                                              <textarea name="meta_description" class="form-control" id="" >{{$getBackend->meta_description}}</textarea>
-                                            </div>
-
-                                            <div class="col-lg-6 col- form-group ">
-                                                <label class="text-dark-medium"> Meta Keywords: <span style="color: rgb(98, 150, 248)">   Separate Every Keyword by Using (,) Symbol</span></label>
-                                              <textarea name="meta_keywords" class="form-control" id="" >{{$getBackend->meta_keywords}}</textarea>
-                                            </div>
-                                        </div>
-                                     </div>
+                                 
 
 
-                                    <div class="col-lg-12 col-12 form-group ">
-                                        <h4><b>Logo</b></h4>
-                                        <hr>
-                                       <div class="row">
-                                        <div class="col-lg-6 col-12 form-group ">
-                                            <div class="mt-5">
-                                                <img src="{{asset($getBackend->logo)}}" alt="" >
-                                            </div>
-                                            <label class="text-dark-medium">Site Logo:<span style="color: rgb(98, 150, 248)"> Resolution Height- 70 PX,Width- 416PX</span> </label>
-                                            <input type="file" name="logo" value="{{$getBackend->logo}}" class="form-control">
-
-
-                                        </div>
-                                        <div class="col-lg-6 col-12 form-group ">
-                                            <div class="mt-5">
-                                                <img src="{{asset($getBackend->favicon)}}" alt="" style="height: 64px;width:64px">
-                                            </div>
-                                            <label class="text-dark-medium">Site Favicon:<span style="color: rgb(98, 150, 248)"> Best Resolution Height- 64 PX, Width- 64 PX</span></label>
-                                            <input type="file" name="favicon" value="{{$getBackend->favicon}}" class="form-control">
-                                        </div>
-
-                                       </div>
-                                    </div>
 
 
                                     <div class="col-lg-12 col-12 form-group ">

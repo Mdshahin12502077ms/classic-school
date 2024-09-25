@@ -30,6 +30,8 @@ public function all( Request $request){
         // $data['branchSearch']=Branch::where('institute_name','Like','%'.$request->search_branch.'%')->with('branch_details')->get();
         // dd( $data['branchSearch']);
 
+        $data['branchPaginate']=Branch::paginate(10);
+      
 
         $query = $request->input('search_branch');
         $columns = ['institute_name', 'address','mobile_number','e_mail','Propietor_Name'];
@@ -45,7 +47,11 @@ public function all( Request $request){
         return view('Backend.admin.Branch.all_branch',$data);
     }
     else{
-    $data['branchSearch']=Branch::with('division','district','branch_details')->get();
+      
+
+    // $data['branchPaginate']=Branch::paginate(10);
+    
+    $data['branchSearch']=Branch::with('division','district','branch_details')->paginate(10);
     $data['branchSubs']=Branch::all();
     $data['plansubs']=Plan::all();
     return view('Backend.admin.Branch.all_branch',$data);

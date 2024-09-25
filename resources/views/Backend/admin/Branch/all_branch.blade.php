@@ -184,8 +184,12 @@
 
 
                                       </tbody>
+                                     
                             </table>
-
+                          
+                         {{ $branchSearch->links() }}
+                      
+                            
 
                         </form>
 

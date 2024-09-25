@@ -43,11 +43,19 @@ class StudentRgisterFundController extends Controller
         $instituteOwner=Auth::user()->id;
 
        $getFund=StRegistrationFund::where('session_id',$session_id)->where('course_id',$course_id)->with('session','course')->where('created_by',$instituteOwner)->get();
-       $getAmount=stRegAvlableAmount::where('session_id',$session_id)->where('course_id',$course_id)->orderBy('id','desc')->with('StRegistrationFund')->where('created_by',$instituteOwner)->first();
+      $getAmount=stRegAvlableAmount::where('session_id',$session_id)->where('course_id',$course_id)->orderBy('id','desc')->with('StRegistrationFund')->where('created_by',$instituteOwner)->first();
+      if($getAmount!=null){
+        return response()->json([
+          'data'=>$getFund,
+          'amount'=>$getAmount->available_amount,
+          ]);
+      }
+     else{
       return response()->json([
-            'data'=>$getFund,
-            'amount'=>$getAmount->available_amount,
-    ]);
+        'data'=>$getFund,
+        'amount'=>0,
+        ]);
+     }
 
     }
 

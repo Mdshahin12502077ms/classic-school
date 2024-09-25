@@ -15,10 +15,10 @@ class RegistrationController extends Controller
         $session=Session::with('eduyear')->where('status','Active')->get();
         // dd($session->eduyear);
         $education=EducationYear::where('status','Active')->first();
-        $dataReg=RegistrationSession::All();
+        $dataRegistration=RegistrationSession::paginate(10);
 
 
-        return view('Backend.admin.Registration.RegisterLimit',compact('session','education','dataReg'));
+        return view('Backend.admin.Registration.RegisterLimit',compact('session','education','dataRegistration'));
     }
 
 public function register_time_insert(Request $request){

@@ -3,7 +3,7 @@
     <div class="nav-bar-header-one">
         <div class="header-logo">
             @php
-                    $backend_setting=App\Models\BackendSettings::first();
+                    $backend_setting=App\Models\logoSet::first();
                 @endphp
 
                 <a href="index.html"><img src="{{asset($backend_setting->logo)}}" alt="logo"></a>

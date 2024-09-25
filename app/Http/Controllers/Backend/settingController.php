@@ -213,8 +213,8 @@ class settingController extends Controller
         }
 
         $file = $request->file('logo');
-        $extension = 'logo'.$file->getClientOriginalExtension();
-        $filename = time() . '.' . $extension;
+        $extension = $file->getClientOriginalExtension();
+        $filename = time() .'logo'.'.' . $extension;
         $path = 'Backend/image/LogoSetting/';
         $file->move($path, $filename);
         $logo->logo = $path . $filename;
@@ -228,8 +228,8 @@ class settingController extends Controller
         }
 
         $file = $request->file('favicon');
-        $extension = 'favicon'.$file->getClientOriginalExtension();
-        $filename = time() . '.' . $extension;
+        $extension = $file->getClientOriginalExtension();
+        $filename = time() .'favicon'.'.' . $extension;
         $path = 'Backend/image/LogoSetting/';
         $file->move($path, $filename);
         $logo->favicon = $path . $filename;

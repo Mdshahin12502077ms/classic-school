@@ -33,10 +33,10 @@ class BranchSubsController extends Controller
         }
 
         public function allSubscription(){
-            $data['Allsubscription']=BranchSubscription::all();
-            $data['Pendingsubscription']=BranchSubscription::where('status','Pending')->get();
-            $data['Approvedsubscription']=BranchSubscription::where('status','Approved')->get();
-            $data['Expiredsubscription']=BranchSubscription::where('status','Expired')->get();
+            $data['Allsubscription']=BranchSubscription::paginate(10);
+            $data['Pendingsubscription'] = BranchSubscription::where('status', 'Pending')->paginate(10);
+            $data['Approvedsubscription'] = BranchSubscription::where('status', 'Approved')->paginate(10);
+            $data['Expiredsubscription'] = BranchSubscription::where('status', 'Expired')->paginate(10);
 
             return view('Backend.admin.SchoolSubscription.AllSubscription',$data);
         }

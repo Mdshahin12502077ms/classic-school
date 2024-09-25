@@ -19,19 +19,24 @@ class StudentController extends Controller
 
     public function allStudent(){
         $data['student'] = Student::with('course','session')->get();
+       
         $data['course']=CourseModel::all();
         $data['session']=Session::with('eduyear')->where('status','Active')->get();
         $data['year']=EducationYear::All();
         // dd($data['session']);
         if(Auth::user()->admin_role=='instituteadmin'){
-            $data['student'] = Student::where('created_by',Auth::user()->id)->with('course','session')->get();
+            $data['student'] = Student::where('created_by',Auth::user()->id)->with('course','session')->paginate(10);
         }
-        return view('Backend.admin.student.AllStudent',$data);
+
+        if(Auth::user()->admin_role=='superadmin'){
+            $data['student'] = Student::with('course','session')->paginate(10);
+        }
+        return view('Backend.admin.Student.AllStudent',$data);
     }
     public function addmissionForm(){
         $data['course']=CourseModel::all();
         $data['session']=Session::where('status','Active')->get();
-        return view('Backend.admin.student.AdmissionForm',$data);
+        return view('Backend.admin.Student.AdmissionForm',$data);
     }
 
     public function insertStudent(Request $request){
@@ -158,7 +163,7 @@ class StudentController extends Controller
         $data['session']=Session::where('status','Active')->get();
 
 
-        return view('Backend.admin.student.EditStudent',$data);
+        return view('Backend.admin.Student.EditStudent',$data);
     }
   public function updateStudent(Request $request,$id){
 
@@ -264,7 +269,7 @@ class StudentController extends Controller
   public function studentInfo($id){
     $data['student'] = Student::find($id);
 
-    return view('Backend.admin.student.StudentInfo',$data);
+    return view('Backend.admin.Student.StudentInfo',$data);
   }
 
   public function deleteStudent($id){
@@ -298,10 +303,12 @@ public function search_student(Request $request){
                     $auth_role=Auth::user()->admin_role;
                     $user=Auth::User()->where('branch_id',$branch_id)->first();
                     $user_id=$user->id;
+                   
+                    
                     $session_id=$request->session_id;
                     $eduyear_id=$request->eduyear_id;
                   if($registration=='Addmitted_List'){
-                    $getstCourseWise=Student::with('course','session')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','pending')->where('created_by',Auth::user()->id)->get();
+                    $getstCourseWise=Student::with('course','session','User')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','pending')->where('created_by',$user_id)->get();
                         return response()->json([
 
                             'data'=>$getstCourseWise,
@@ -311,7 +318,7 @@ public function search_student(Request $request){
                 }
 
                 elseif($registration=='Registered_Student'){
-                    $getstCourseWise=Student::with('course','session')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','registered')->where('created_by',Auth::user()->id)->get();
+                    $getstCourseWise=Student::with('course','session','User')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','registered')->where('created_by',$user_id)->get();
                     return response()->json([
 
                         'data'=>$getstCourseWise,
@@ -321,11 +328,12 @@ public function search_student(Request $request){
                 }
 
                     else{
-                        $getstCourseWise=Student::with('course','session')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','pending')->where('created_by',Auth::user()->id)->get();
+                        $getstCourseWise=Student::with('course','session','User')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','pending')->where('created_by',$user_id)->get();
                         return response()->json([
 
                             'data'=>$getstCourseWise,
                              'auth_role'=> $auth_role,
+                             'branch_id'=>$user_id,
 
                         ]);
                     }
@@ -408,7 +416,7 @@ public function newRegistration(Request $request)
 
     }
 
-    return view('Backend.admin.student.student_register',$data);
+    return view('Backend.admin.Student.student_register',$data);
 
 }
 
@@ -437,7 +445,13 @@ public function newRegistrationInsert(Request $request){
                                               ->orderBy('id','desc')
                                               ->first();
                                            $totalFee=$student->course->course_amount * $totalStudent;
+
+                                         
                                            if ($student) {
+                                            if($availableAmount==null){
+                                                toastr()->error('Registration Failed. Not enough balance for your selected student.');
+                                                 return redirect()->back();
+                                             }
                                            if($availableAmount->available_amount>= $totalFee){
                                             $balanceAmount=$availableAmount->available_amount-$student->course->course_amount;
                                             stRegAvlableAmount::where('id',$availableAmount->id)->update(['available_amount'=>$balanceAmount]);
@@ -502,7 +516,7 @@ public function print_student(Request $request){
         $students = Student::whereIn('id', $idsArray)->get();
 
         // Return view with students or handle print logic
-        return view('Backend.admin.student.print_student', compact('students'));
+        return view('Backend.admin.Student.print_student', compact('students'));
     }
    else{
      toastr()->error('No Student Selected For Print');

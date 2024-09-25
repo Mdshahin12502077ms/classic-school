@@ -21,4 +21,8 @@ class Student extends Model
     public function eduyear(){
         return $this->belongsTo(EducationYear::class,'eduyear_id','id');
     }
+
+    public function User(){
+        return $this->belongsTo(User::class,'created_by','id');
+    }
 }

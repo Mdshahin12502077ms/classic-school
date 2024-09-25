@@ -67,7 +67,7 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($course as $course)
+                                    @foreach ($course as $courses)
                                     <tr>
                                         <td>
                                             <div class="form-check">
@@ -76,17 +76,17 @@
                                             </div>
                                         </td>
 
-                                        <td>{{$course->course_name}}</td>
-                                        <td>{{ $course->course_code}}</td>
-                                        <td>{{$course->course_duration}}</td>
-                                        <td>{{$course->course_amount}}</td>
-                                        <td><button type="button" class="btn btn-outline-success disabled" style="width: 100%;font-size:15px">{{$course->status}}</button></td>
+                                        <td>{{$courses->course_name}}</td>
+                                        <td>{{ $courses->course_code}}</td>
+                                        <td>{{$courses->course_duration}}</td>
+                                        <td>{{$courses->course_amount}}</td>
+                                        <td><button type="button" class="btn btn-outline-success disabled" style="width: 100%;font-size:15px">{{$courses->status}}</button></td>
 
                                         <td style="display: flex">
 
 
-                                            <a href="{{url('course/edit',$course->id)}}" class="btn btn-info btn-lg" style="font-size:15px;margin-right:4%;height:100%"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                                            <form action="{{url('course/delete',$course->id)}}"  method="post"  style="margin-left:4%">
+                                            <a href="{{url('course/edit',$courses->id)}}" class="btn btn-info btn-lg" style="font-size:15px;margin-right:4%;height:100%"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                            <form action="{{url('course/delete',$courses->id)}}"  method="post"  style="margin-left:4%">
                                                 @csrf
                                              <button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('Are you sure to delete this item?')" style="font-size:15px"><i class="fas fa-trash"></i></button>
                                          </form>
@@ -105,6 +105,7 @@
 
                                 </tbody>
                             </table>
+                            {{$course->links()}}
                         </div>
                     </div>
                 </div>
