@@ -48,7 +48,7 @@
 
                             <div class="col-xl-3 col-lg-6 col-12  form-group">
                                 <label>Course*</label>
-                                <select name="course_id" class="form-control" id="course_id" style="font-size:20px;padding:5px">
+                                <select name="course_id" class="form-control" id="course_id" style="font-size:15px;padding:5px">
                                     <option value="">Please Select Course</option>
                                     @foreach ($course as $course)
                                     <option value="{{$course->id}}">{{$course->course_name}}</option>
@@ -64,7 +64,7 @@
                             <div class="col-xl-3 col-lg-6 col-12  form-group">
                                 <label>Session*</label>
                                 <select name="session_id" class="form-control"
-                                id="session"style="font-size:20px">
+                                id="session"style="font-size:15px">
                                 <option value="">select Session </option>
                             </select>
                                 @if($errors->has('course_id'))

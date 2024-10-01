@@ -87,7 +87,12 @@
                                         class="flaticon-chat-comment-oval-speech-bubble-with-text-lines"></i>Message</a>
                             </li>
                             <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                            <li><a href="login.html"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                          
+                             <li>
+
+                    <a href="{{url('lgout')}}" method="post" class="nav-link"><i
+                        class="flaticon-turn-off"></i><span>Logout</span></a>
+                </li>
                         </ul>
                     </div>
                 </div>

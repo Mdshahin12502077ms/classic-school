@@ -303,11 +303,11 @@
                 </li>
 
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
 
                     <a href="{{url('lgout')}}" method="post" class="nav-link"><i
                         class="flaticon-settings"></i><span>Logout</span></a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>

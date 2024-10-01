@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -135,4 +135,63 @@
             </div>
         </div>
     </body>
-</html>
+</html> --}}
+  @extends('admin.layouts.master')
+    @section('content')
+    <div class="login-main"
+        style="background-image: url('{{ asset('assets/admin/images/login.jpg') }}')">
+        <div class="container custom-container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-5 col-xl-5 col-lg-6 col-md-8 col-sm-11">
+                    <div class="login-area">
+                        <div class="login-wrapper">
+                            <div class="login-wrapper__top">
+                                @php
+                                $backend_setting=App\Models\BackendSettings::first();
+                                @endphp
+                               <h3 class="title text-white">@lang('Welcome to') <strong>{{$backend_setting->site_title }}</strong></h3>
+                              <p class="text-white">
+                                    @lang('Dashboard')</p>
+                            </div>
+
+                            <div class="login-wrapper__body">
+                                <form action="{{url('Login/AuthCheck')}}" method="POST" class="cmn-form mt-30 verify-gcaptcha login-form">
+                                    @csrf
+
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label>@lang('Institute Registration Number ')<span style="color:red">*</span></label>
+                                        <input type="text" name="registration_id" id="typeEmailX" class="form-control form-control-lg" />
+
+                                        @if($errors->has('registration_id'))
+                                        <div class="error" style="color:red">{{ $errors->first('registration_id') }}</div>
+                                     @endif
+                                      </div>
+
+                                    <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label>@lang('Email')<span style="color:red">*</span></label>
+                                        <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" />
+
+                                        @if($errors->has('email'))
+                                        <div class="error" style="color:red">{{ $errors->first('email') }}</div>
+                                     @endif
+                                      </div>
+
+                                      <div data-mdb-input-init class="form-outline form-white mb-4">
+                                        <label>@lang('Password')<span style="color:red">*</span></label>
+                                        <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" />
+
+                                        @if($errors->has('password'))
+                                        <div class="error" style="color:red">{{ $errors->first('password') }}</div>
+                                     @endif
+                                      </div>
+                                    {{-- <x-captcha /> --}}
+                                    <button type="submit" class="btn cmn-btn w-100">@lang('LOGIN')</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endsection

@@ -19,7 +19,7 @@ class StudentController extends Controller
 
     public function allStudent(){
         $data['student'] = Student::with('course','session')->get();
-       
+
         $data['course']=CourseModel::all();
         $data['session']=Session::with('eduyear')->where('status','Active')->get();
         $data['year']=EducationYear::All();
@@ -303,12 +303,12 @@ public function search_student(Request $request){
                     $auth_role=Auth::user()->admin_role;
                     $user=Auth::User()->where('branch_id',$branch_id)->first();
                     $user_id=$user->id;
-                   
-                    
+
+
                     $session_id=$request->session_id;
                     $eduyear_id=$request->eduyear_id;
                   if($registration=='Addmitted_List'){
-                    $getstCourseWise=Student::with('course','session','User')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','pending')->where('created_by',$user_id)->get();
+                    $getstCourseWise=Student::with('course','session')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','pending')->where('created_by',$user_id)->get();
                         return response()->json([
 
                             'data'=>$getstCourseWise,
@@ -318,7 +318,7 @@ public function search_student(Request $request){
                 }
 
                 elseif($registration=='Registered_Student'){
-                    $getstCourseWise=Student::with('course','session','User')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','registered')->where('created_by',$user_id)->get();
+                    $getstCourseWise=Student::with('course','session')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','registered')->where('created_by',$user_id)->get();
                     return response()->json([
 
                         'data'=>$getstCourseWise,
@@ -328,7 +328,7 @@ public function search_student(Request $request){
                 }
 
                     else{
-                        $getstCourseWise=Student::with('course','session','User')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','pending')->where('created_by',$user_id)->get();
+                        $getstCourseWise=Student::with('course','session')->where('course_id',$course)->where('session_id',$session_id)->where('eduyear_id',$eduyear_id)->where('status','pending')->where('created_by',$user_id)->get();
                         return response()->json([
 
                             'data'=>$getstCourseWise,
@@ -446,7 +446,7 @@ public function newRegistrationInsert(Request $request){
                                               ->first();
                                            $totalFee=$student->course->course_amount * $totalStudent;
 
-                                         
+
                                            if ($student) {
                                             if($availableAmount==null){
                                                 toastr()->error('Registration Failed. Not enough balance for your selected student.');
@@ -523,6 +523,22 @@ public function print_student(Request $request){
      return redirect()->back();
    }
 
+}
+
+
+public function searchByInstituteId(Request $request)
+{
+    $instituteId = $request->input('institute_id');
+    $auth_role=Auth::user()->admin_role;
+    // Fetch students by institute ID
+    $students = Student::where('institute_id', $instituteId)->where('status','registered')->get();
+
+    return response()->json([
+
+        'data'=>$students,
+         'auth_role'=> $auth_role,
+
+    ]);
 }
 
 

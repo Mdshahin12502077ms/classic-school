@@ -213,6 +213,66 @@
 
 
 
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <a href="{{ url('add_division') }}">
+                                                    <div class="row">
+                                                        <div class="col-md-2 text-white text-center system-settings"><i class="fa fa-cog"></i></div>
+                                                         <div class="col-md-10" style="">
+                                                             <h4 class="mt-3 contolmargin"><b >Division Settings</b></h4>
+                                                               <p style="font-size: 14px">Configure the Division information of the site.</p>
+                                                         </div>
+                                                     </div>
+                                                </a>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <a href="{{ url('add_district') }}">
+                                                    <div class="row">
+                                                        <div class="col-md-2 text-white text-center system-settings"><i class="fa fa-cog"></i></div>
+                                                         <div class="col-md-10" style="">
+                                                             <h4 class="mt-3 contolmargin"><b >District Settings</b></h4>
+                                                               <p style="font-size: 14px">Configure the District information of the site.</p>
+                                                         </div>
+                                                     </div>
+                                                </a>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <a href="{{url('education_year/add')}}">
+                                                    <div class="row">
+                                                        <div class="col-md-2 text-white text-center system-settings"><i class="fa fa-cog"></i></div>
+                                                         <div class="col-md-10" style="">
+                                                             <h4 class="mt-3 contolmargin"><b >Education Year Settings</b></h4>
+                                                               <p style="font-size: 14px">Configure the running education yeae of the institute.</p>
+                                                         </div>
+                                                     </div>
+                                                </a>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
 
 
 

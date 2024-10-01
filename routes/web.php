@@ -11,10 +11,13 @@ use  App\Http\Controllers\Backend\AuthController;
 use  App\Http\Controllers\BranchController;
 use  App\Http\Controllers\Backend\BranchSubsController;
 use  App\Http\Controllers\Backend\RegistrationController;
+
 use  App\Http\Controllers\Backend\StudentRgisterFundController;
 use App\Http\Controllers\SMTPController;
 use  App\Http\Middleware\superAdmin;
 use App\Http\Controllers\Backend\BkashPaymentController;
+
+use  App\Http\Controllers\frontend\InstituteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +37,8 @@ Route::get('/', function () {
 
   Route::middleware(['superAdmin'])->group(function () {
     Route::get('admin/dashboard',[adminController::class,'dashboard']);
-
+    // Institute Dashboard
+    Route::get('institute/dashboard',[InstituteController::class,'dashboard']);
   //branch all url
 
   Route::get('branch/all',[BranchController::class,'all']);
@@ -115,6 +119,7 @@ Route::prefix('Student/')->group(function(){
         //print
 
     Route::get('Print/Student',[StudentController::class,'print_student']);
+    Route::get('search', [StudentController::class, 'searchByInstituteId']);
 
 
   });

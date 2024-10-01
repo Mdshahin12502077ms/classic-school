@@ -30,7 +30,7 @@ if($request->registration_id!=null){
        if(Auth::attempt(['email' => $email, 'password' => $password]) && Auth::user()->branch_id==$registration->id){
         if(Auth::user()){
 
-              return redirect('admin/dashboard');
+              return redirect('institute/dashboard');
 
         }
      }
