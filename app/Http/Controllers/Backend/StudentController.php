@@ -528,16 +528,19 @@ public function print_student(Request $request){
 
 public function searchByInstituteId(Request $request)
 {
-    $instituteId = $request->input('institute_id');
+    $instituteId = $request->institute_id;
     $auth_role=Auth::user()->admin_role;
+    $institute=Auth::user()->where('branch_id',$instituteId)->first();
+    $instituteStudent= $institute->id;
     // Fetch students by institute ID
-    $students = Student::where('institute_id', $instituteId)->where('status','registered')->get();
-
+    $students = Student::where('created_by',$instituteStudent) ->where('status', 'registered')
+    ->with(['course', 'session'])->get();
+  
     return response()->json([
 
         'data'=>$students,
-         'auth_role'=> $auth_role,
-
+        'auth_role'=> $auth_role,
+        
     ]);
 }
 

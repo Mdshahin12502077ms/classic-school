@@ -43,25 +43,24 @@ class registerLimit extends Command
                         'status'=>'Deactive'
                     ]);
 
-                    $paymentDetails= StRegistrationFund::where('session_id', $registerLimit->session_id)
-                    ->where('reg_session_id',$registerLimit->id)
-                    ->where('status', 'paid')
-                    ->get();
-                    foreach( $paymentDetails as  $paymentDetails){
-                        $getBranches =User::where('branch_id', $paymentDetails->branch_id)->get();
-                        foreach($getBranches as $getBranch){
-                            $getStudents=Student::where('created_by',$getBranch->id)->get();
-                            foreach($getStudents as $student) {
-                                $student->where('status','registered')->where('session_id',$registerLimit->session_id)->update([
-                                    'status' => 'downloaded'
-                                ]);
-                            }
+                    // $paymentDetails= StRegistrationFund::where('session_id', $registerLimit->session_id)
+                    // ->where('reg_session_id',$registerLimit->id)
+                    // ->where('status', 'paid')
+                    // ->get();
+                    // foreach( $paymentDetails as  $paymentDetails){
+                    //     $getBranches =User::where('branch_id', $paymentDetails->branch_id)->get();
+                    //     foreach($getBranches as $getBranch){
+                    //         $getStudents=Student::where('created_by',$getBranch->id)->get();
+                    //         // foreach($getStudents as $student) {
+                    //         //     $student->where('status','registered')->where('session_id',$registerLimit->session_id)->update([
+                    //         //         'status' => 'downloaded'
+                    //         //     ]);
+                    //         // }
 
-                    }
+                    // }
 
                         }
 
         return Command::SUCCESS;
     }
-}
 }

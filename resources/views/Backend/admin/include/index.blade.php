@@ -27,7 +27,7 @@
                                     <div class="item-content">
                                         <div class="item-title">Students</div>
                                         <div class="item-number"><span class="counter"
-                                                data-num="150000">1,50,000</span></div>
+                                                data-num="{{$studentCount}}">{{$studentCount}}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -43,8 +43,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="item-content">
-                                        <div class="item-title">Teachers</div>
-                                        <div class="item-number"><span class="counter" data-num="2250">2,250</span>
+                                        <div class="item-title">Register Student</div>
+                                        <div class="item-number"><span class="counter" data-num="{{$studentRegCount}}">{{$studentRegCount}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -61,8 +61,9 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="item-content">
-                                        <div class="item-title">Parents</div>
-                                        <div class="item-number"><span class="counter" data-num="5690">5,690</span>
+                                        <div class="item-title">Current Month Income</div>
+                                        
+                                        <div class="item-number"><span class="counter" data-num="{{ number_format($monthlyIncome->total_income,3)}}">৳{{ number_format($monthlyIncome->total_income,1) }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -79,9 +80,10 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="item-content">
-                                        <div class="item-title">Earnings</div>
+                                        <div class="item-title">Yearly Earn</div>
+                                       
                                         <div class="item-number"><span>$</span><span class="counter"
-                                                data-num="193000">1,93,000</span></div>
+                                                data-num="{{number_format($yearlyIncome->total_income, 1) }}"> ৳{{ number_format($yearlyIncome->total_income, 1) }}</span></div>
                                     </div>
                                 </div>
                             </div>

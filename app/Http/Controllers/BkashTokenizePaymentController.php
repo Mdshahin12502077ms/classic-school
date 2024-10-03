@@ -9,7 +9,7 @@ use App\Models\CreatePayment;
 use App\Models\amount;
 use App\Models\Branch;
 use App\Models\stRegAvlableAmount;
-
+use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Backend\PaymentTemp;
@@ -133,45 +133,60 @@ class BkashTokenizePaymentController extends Controller
                 }
 
              //available amount insert
-
              $amountRecord = StRegistrationFund::where('id', $amountId)->first();
-            $getAvailableAmounts=stRegAvlableAmount::where('course_id', $amountRecord->course_id)->where('session_id', $amountRecord->session_id)
-            ->orderBy('id','desc')->where('institute_id',$amountRecord->institute_id)->first();
-            // dd($getAvailableAmount->available_amount);
-          if($getAvailableAmounts==null){
-            $auth=Auth::user()->id;
-            //  $branch_id=$auth->branch_id;
-              $getAuth=Auth::user()->where('id',$auth)->first();
-              $getbranch=Branch::where('id',$getAuth->branch_id)->first();
-              $getAvailableAmount=new stRegAvlableAmount();
-              $getAvailableAmount->amountfund_id=$amountRecord->id;
-              $getAvailableAmount->course_id=$amountRecord->course_id;
-              $getAvailableAmount->session_id=$amountRecord->session_id;
-              $getAvailableAmount->amount=$response['amount'];
-              $getAvailableAmount->available_amount=$response['amount'];
-              $getAvailableAmount->institute_id=$getAuth->branch_id;
-              $getAvailableAmount->created_by= $auth;
 
+             $getAvailableAmounts=stRegAvlableAmount::where('course_id', $amountRecord->course_id)->where('session_id', $amountRecord->session_id)
+             ->orderBy('id','desc')->where('institute_id',$amountRecord->institute_id)->first();
+             $availableAmount = $getAvailableAmounts ? $getAvailableAmounts->total_earn : 0; 
+             // dd($getAvailableAmount->available_amount);
+             // Get the total earnings by fetching the latest record
+             $total_earn = stRegAvlableAmount::orderBy('id', 'desc')->first();
+             $total_earn_amount = $total_earn ? $total_earn->total_earn : 0;  // Ensure it's either the value or 0 if null
+             
+             // Check if no available amount records were found
+             if ($getAvailableAmounts == null) {
+                 $auth = Auth::user()->id;
+             
+                 // Fetch user and branch information
+                 $getAuth = Auth::user()->where('id', $auth)->first();
+                 $getbranch = Branch::where('id', $getAuth->branch_id)->first();
+             
+                 // Create a new stRegAvlableAmount record
+                 $getAvailableAmount = new stRegAvlableAmount();
+                 $getAvailableAmount->amountfund_id = $amountRecord->id;
+                 $getAvailableAmount->course_id = $amountRecord->course_id;
+                 $getAvailableAmount->session_id = $amountRecord->session_id;
+                 $getAvailableAmount->amount = $response['amount'];  // Set default amount
+                 $getAvailableAmount->available_amount = $availableAmount+$response['amount'];
+                 $getAvailableAmount->total_earn =$total_earn_amount+$response['amount'];  // Add 100 to the existing total earnings
+                 $getAvailableAmount->institute_id = $getAuth->branch_id;
+                 $getAvailableAmount->created_by = $auth;
+                 $getAvailableAmount->date =Carbon::createFromFormat('Y-m-d', '2024-10-02');
+                 
+                 // Debugging purpose to check the created object
+             
+             
+                 // Save the new record
+                 $getAvailableAmount->save();
+             }
+          else{
+ 
+             $auth=Auth::user()->id;
+             //  $branch_id=$auth->branch_id;
+               $getAuth=Auth::user()->where('id',$auth)->first();
+               $getbranch=Branch::where('id',$getAuth->branch_id)->first();
+               $getAvailableAmount=new stRegAvlableAmount();
+               $getAvailableAmount->amountfund_id=$amountRecord->id;
+               $getAvailableAmount->course_id=$amountRecord->course_id;
+               $getAvailableAmount->session_id=$amountRecord->session_id;
+               $getAvailableAmount->amount=$response['amount'];
+               $getAvailableAmount->available_amount=$availableAmount+$response['amount'];
+               $getAvailableAmount->total_earn= $total_earn_amount+$response['amount'];
+               $getAvailableAmount->institute_id=$getAuth->branch_id;
+               $getAvailableAmount->created_by= $auth;
+               $getAvailableAmount->date =Carbon::createFromFormat('Y-m-d', '2024-10-02');
               $getAvailableAmount->save();
-             // Or any status indicating the payment process has started
-            }
-         else{
-
-            $auth=Auth::user()->id;
-            //  $branch_id=$auth->branch_id;
-              $getAuth=Auth::user()->where('id',$auth)->first();
-              $getbranch=Branch::where('id',$getAuth->branch_id)->first();
-              $getAvailableAmount=new stRegAvlableAmount();
-              $getAvailableAmount->amountfund_id=$amountRecord->id;
-              $getAvailableAmount->course_id=$amountRecord->course_id;
-              $getAvailableAmount->session_id=$amountRecord->session_id;
-              $getAvailableAmount->amount=$response['amount'];
-              $getAvailableAmount->available_amount=$getAvailableAmounts->available_amount+$response['amount'];
-              $getAvailableAmount->institute_id=$getAuth->branch_id;
-              $getAvailableAmount->created_by= $auth;
-
-             $getAvailableAmount->save();
-         }
+          }
                 Toastr()->warning('Your transaction is Successfully done.');
                 return redirect()->to('/Registration/student/all/fund/view')->with('message', 'Payment successful with transaction ID: ' . $response['trxID']);
                 // return BkashPaymentTokenize::success('Thank you for your payment', $response['trxID']);
@@ -181,15 +196,11 @@ class BkashTokenizePaymentController extends Controller
         else if ($request->status == 'cancel'){
 
 
+    
 
 
-
-
-
-
-
-
-            return BkashPaymentTokenize::cancel('Your payment is canceled');
+            Toastr()->warning('Your transaction is Canceled');
+            return redirect()->to('/Registration/student/all/fund/view');
         }else{
 
             Toastr()->warning('Your transaction is failed');

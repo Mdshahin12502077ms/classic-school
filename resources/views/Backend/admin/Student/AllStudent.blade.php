@@ -101,15 +101,15 @@
                             </div>
 
 
-                              <div class="col-xl-2 col-lg-6 col-12  form-group">
+                              <div class="col-xl-2 col-lg-4 col-12  form-group">
                                 <div class="pb-3 ">
                                     <a  class="fw-btn-fill btn-gradient-yellow text-center" href="{{url('Student/addmission/form')}}">Add Student</a>
                                  </div>
                               </div>
                           @if (Auth::user()->admin_role=='superadmin')
-                              <div class="col-xl-3 col-lg-6 col-12  form-group">
+                              <div class="col-xl-2 col-lg-4 col-12  form-group">
                                 <div class="pb-3 ">
-                                    <a  class="fw-btn-fill btn-gradient-yellow text-center" id="reg_search">Register Student</a>
+                                    <a  class="fw-btn-fill btn-gradient-yellow text-center text-white" id="searchStudent">Register Student</a>
                                  </div>
                               </div>
                           @endif
@@ -288,92 +288,99 @@
             });
         });
     </script>
+
 <script>
-<script>
-    $(document).ready(function() {
-        $('#reg_search').click(function(e) {
-            e.preventDefault();
-            let instituteId = $('#institute_id').val();
+   
+         $(document).ready(function(){
+          $('#searchStudent').click(function(){
 
-            $.ajax({
-                url: "{{ url('Student/search') }}",  // Route to handle the search
-                type: "GET",
-                data: { institute_id: instituteId },
-                success: function(response) {
-                     let adminRole = data.auth_role;
-                    let html = '';
-                    if (data.data.length > 0) {
-                        data.data.forEach(function(student) {
-                            html += `
-                                <tr data-student-id="${student.id}">
-                                    <td>
-                                        <div class="form-check">
-                                            <input type="checkbox" name="St_reg[${student.id}]" class="student-checkbox" value="${student.id}" id="select-all" class="form-check-input">
-                                            <label class="form-check-label"></label>
-                                        </div>
-                                    </td>
-                                    <td><img src="{{asset('${student.student_photo}')}}" alt="Photo of ${student.st_name}" height="100" width="100"></td>
-                                    <td class="table_cell">
-                                        <b>${student.st_id_number}</b><br>
-                                        <b>${student.st_name}</b><br>
-                                        <b>${student.f_name}</b><br>
-                                        <b>${student.m_name}</b>
-                                    </td>
-                                    <td class="table_cell">
-                                        <b>${student.Date_of_birth}</b><br>
-                                        <b>${student.religion}</b><br>
-                                        <b>${student.gender}</b><br>
-                                        <b>${student.id_number}</b>
-                                    </td>
-                                    <td class="table_cell">
-                                        <b>${student.course.course_name}</b><br>
-                                        <b>${student.session.session_name}</b><br>
-                                        <b>${student.class_roll}</b><br>
+            var institute_id=$('#search_branch').val();
+         $.ajax({
+            url: '/Student/search',  // The URL for the request
+            method: 'GET',           // Type of request (GET, POST, etc.)
+            data: {                  // Data to send to the server
+                institute_id: institute_id
+            },
+            success: function(data) {
 
-                                    </td>
-                                    <td class="table_cell">
-                                        <b>${student.edu_qualification}</b><br>
-                                        <b>${student.reg_board}/${student.passing_year}</b><br>
-                                        <b>${student.reg_no}</b>
-                                    </td>`;
+                                let adminRole = data.auth_role;
+                              
+                                let html = '';
 
-                                 if(student.status==='registered' && adminRole==='instituteadmin'){
-                                      html += `<td>
-                                        <a href="/Student/register/cancel/${student.id}" class="mt-2 btn btn-info btn-lg font_icon text-center" style="background-color:red"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                if (data.data.length > 0) {
+                                    data.data.forEach(function(student) {
+                                        html += `
+                                            <tr data-student-id="${student.id}">
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input type="checkbox" name="St_reg[${student.id}]" class="student-checkbox" value="${student.id}" id="select-all" class="form-check-input">
+                                                        <label class="form-check-label"></label>
+                                                    </div>
+                                                </td>
+                                                <td><img src="{{asset('${student.student_photo}')}}" alt="Photo of ${student.st_name}" height="100" width="100"></td>
+                                                <td class="table_cell">
+                                                    <b>${student.st_id_number}</b><br>
+                                                    <b>${student.st_name}</b><br>
+                                                    <b>${student.f_name}</b><br>
+                                                    <b>${student.m_name}</b>
+                                                </td>
+                                                <td class="table_cell">
+                                                    <b>${student.Date_of_birth}</b><br>
+                                                    <b>${student.religion}</b><br>
+                                                    <b>${student.gender}</b><br>
+                                                    <b>${student.id_number}</b>
+                                                </td>
+                                                <td class="table_cell">
+                                                    <b>${student.course.course_name}</b><br>
+                                                    <b>${student.session.session_name}</b><br>
+                                                    <b>${student.class_roll}</b><br>
 
+                                                </td>
+                                                <td class="table_cell">
+                                                    <b>${student.edu_qualification}</b><br>
+                                                    <b>${student.reg_board}/${student.passing_year}</b><br>
+                                                    <b>${student.reg_no}</b>
+                                                </td>`;
+
+                                        if(student.status==='registered' && adminRole==='instituteadmin'){
+                                                html += `<td>
+                                                    <a href="/Student/register/cancel/${student.id}" class="mt-2 btn btn-info btn-lg font_icon text-center" style="background-color:red"><i class="fa fa-times" aria-hidden="true"></i></a>
+
+                                                    `;
+                                                    }
+                                                    else{
+                                                        html += `<td style="display: flex">
+                                                    <a href="/Student/info/${student.id}" class="mt-2 btn btn-info btn-lg font_icon"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a href="/Student/edit/${student.id}" class="mt-2 btn btn-info btn-lg font_icon"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                    <form action="/Student/delete/${student.id}" method="post" class="mt-2">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <button type="submit" class="btn btn-danger btn-lg font_icon" onclick="return confirm('Are you sure to delete this item?')" style="font-size:15px"><i class="fas fa-trash"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
                                         `;
-                                        }
-                                        else{
-                                            html += `<td style="display: flex">
-                                        <a href="/Student/info/${student.id}" class="mt-2 btn btn-info btn-lg font_icon"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                        <a href="/Student/edit/${student.id}" class="mt-2 btn btn-info btn-lg font_icon"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                                        <form action="/Student/delete/${student.id}" method="post" class="mt-2">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button type="submit" class="btn btn-danger btn-lg font_icon" onclick="return confirm('Are you sure to delete this item?')" style="font-size:15px"><i class="fas fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            `;
-                                        }
+                                                    }
 
-                        });
-                    } else {
-                        html = `
-                            <tr>
-                                <td colspan="7">No students found for this course.</td>
-                            </tr>
-                        `;
-                    }
+                                    });
+                                } else {
+                                    html = `
+                                        <tr>
+                                            <td colspan="7">No students found for this course.</td>
+                                        </tr>
+                                    `;
+                                }
 
-                    $('#students-table tbody').html(html);
-                    $('#students-table').show();
-                },
-                error: function(error) {
-                    console.error('Error fetching data:', error);
-                }
-            });
-        });
-    });
+                                $('#students-table tbody').html(html);
+                                $('#students-table').show();
+},
+error: function(error) {
+console.error('Error fetching data:', error);
+}
+
+         });
+          });
+         });
+    
 
 </script>
 

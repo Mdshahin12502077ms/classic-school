@@ -23,9 +23,10 @@ return new class extends Migration
             $table->string('invoice_number')->nullable();
             $table->string('pay_mode')->nullable();
             $table->string('pay_for')->nullable();
+            $table->string('total_earn')->nullable();
             $table->double('amount');
             $table->double('available_amount');
-
+             $table->string('date')->nullable();
             $table->timestamps();
         });
     }
