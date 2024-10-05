@@ -12,7 +12,7 @@
             width: 100%;
             border-collapse: collapse;
             margin: 0 auto;
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
         }
         th, td {
             border: 1px solid #ddd;
@@ -62,19 +62,22 @@
             </tr>
         </thead>
         <tbody>
+               @php
+
+                  $admin=App\Models\BackendSettings::first();
+               @endphp
 
                 <tr>
-                    <td>Name: BTSSD</td>
+                    <td>Name: {{$admin->sub_title}}</td>
                     <td>{{ $item->Propietor_Name }}</td>
                 </tr>
                 <tr>
-                    <td>Address: Momenbag,Mauail,Paradogar,<br>
-                        Jatrabari,Dhaka-1362
+                    <td>Address: {{$admin->address}}
                     </td>
                     <td>{{ $item->address }}</td>
                 </tr>
                 <tr>
-                    <td>Cell No: 01979-263363</td>
+                    <td>Cell No: {{$admin->phone}}</td>
                     <td>{{ $item->mobile_number }}</td>
                 </tr>
 

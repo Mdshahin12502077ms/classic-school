@@ -174,7 +174,7 @@
                                 Pay
                                 </a>
                         </td>
-                        <td><a href="/Registration/fund/voucher/Pdf/${item.id}" target="_blank">Print Voucher</a></td>
+                        <td><a href="/Registration/fund/voucher/Pdf/${item.id}" target="_blank" onclick="printVoucher(event)">Print Voucher</a></td>
                     </tr>`;
             });
         } else {
@@ -224,6 +224,22 @@ $(document).on('click', '.Payment', function() {
 });
 </script>
 
+<script>
+    function printVoucher(event) {
+        event.preventDefault(); // Prevent the default anchor link behavior
+
+        const pdfUrl = event.currentTarget.href; // Get the URL from the anchor link
+
+        // Open the PDF in a new window
+        const printWindow = window.open(pdfUrl, '_blank');
+
+        // Wait until the PDF is fully loaded before triggering the print dialog
+        printWindow.onload = function() {
+            printWindow.print(); // Trigger the print dialog
+                 // Close the print window after printing
+        };
+    }
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection

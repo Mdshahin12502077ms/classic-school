@@ -178,9 +178,9 @@ class settingController extends Controller
     $backend->address=$request->address;
     $backend->phone=$request->phone;
     $backend->email=$request->email;
-    $backend->meta_title=$request->meta_title;
-    $backend->meta_description=$request->meta_description;
-    $backend->meta_keywords=$request->meta_keywords;
+    // $backend->meta_title=$request->meta_title;
+    // $backend->meta_description=$request->meta_description;
+    // $backend->meta_keywords=$request->meta_keywords;
 
     $backend->facebook=$request->facebook;
     $backend->twitter=$request->twitter;

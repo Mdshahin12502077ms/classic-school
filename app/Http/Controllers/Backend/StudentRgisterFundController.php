@@ -12,6 +12,9 @@ use App\Models\EducationYear;
 use App\Models\RegistrationSession;
 use App\Models\StRegistrationFund;
 use App\Models\stRegAvlableAmount;
+use App\Models\logoSet;
+use App\Models\BackendSettings;
+
 
 use Nette\Utils\Random;
 use Auth;
@@ -104,10 +107,12 @@ class StudentRgisterFundController extends Controller
     }
 
     public function fundVoucherPdf($id){
-        // dd($id);
-       $data['voucher']=StRegistrationFund::find($id);
-       $data['year']=EducationYear::where('status','Active')->first();
-       $pdf = PDF::loadView('Backend.admin.Registration.FundVoucherPdf', $data);
-       return $pdf->stream('FundVoucher.pdf');
+            $data['voucher'] = StRegistrationFund::find($id);
+            $data['year'] = EducationYear::where('status','Active')->first();
+            $data['logo'] = logoSet::first();
+            $data['admin'] = BackendSettings::first();
+
+            return view('Backend.admin.Registration.FundVoucherPdf', $data);
+            // return $pdf->stream('FundVoucher.pdf');
     }
 }
