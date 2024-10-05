@@ -78,7 +78,7 @@
             {{--  @dd($logo)  --}}
 
             <h1>{{ $admin->site_title }}</h1>
-            <p>8/C, Agargaon, Sher-E-Bangla Nagar, Dhaka-1210</p>
+            <p>{{$admin->address}}</p>
             <p>(Website: www.bteb.gov.bd)</p>
         </div>
 
